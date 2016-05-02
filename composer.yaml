@@ -1,7 +1,7 @@
 ---
 type: library
 name: zurborg/cake-log-engine-radis
-version: 1
+version: 1.0.1
 
 description: Radis Logging Engine for CakePHP
 homepage: https://github.com/zurborg/libcake-log-engine-radis-php
@@ -19,7 +19,7 @@ authors:
 
 require:
   php: '>=5.5'
-  ext-redis: '>=2.2.7'
+  ext-redis: '>=2.2.5'
   cakephp/cakephp: '~3.0'
 
 require-dev:
