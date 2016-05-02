@@ -2,6 +2,8 @@ phpdoc=vendor/phpdocumentor/phpdocumentor/bin/phpdoc
 phpdocmd=vendor/evert/phpdoc-md/bin/phpdocmd
 yaml2json=/usr/bin/perl -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
 composer=./composer.phar
+getversion=perl -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
+V=`$(getversion) < composer.yaml`
 
 all: | composer.json documentation
 
@@ -29,3 +31,8 @@ composer.json: composer.yaml
 
 archive: | clean composer.json
 	$(composer) archive
+
+release:
+	git push --all
+	git tag -m "Release version $V" -s v$V
+	git push --tags
