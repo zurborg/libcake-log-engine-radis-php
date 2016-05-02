@@ -117,16 +117,18 @@ class Radis extends BaseLog
         }
 
         $request = \Cake\Routing\Router::getRequest();
-        {
-            $params = $request->params;
+        if (!is_null($request)) {
 
             if (!is_null($request->session))
                 $extras['_session_id'] = $request->session->id();
 
-            foreach (['plugin', 'controller', 'action', 'prefix', 'bare'] as $key)
-            {
-                if (array_key_exists($key, $params) and isset($params[$key]))
-                    $extras["_cake_$key"] = $params[$key];
+            $params = $request->params;
+            if (!is_null($params) and is_array($params)) {
+                foreach (['plugin', 'controller', 'action', 'prefix', 'bare'] as $key)
+                {
+                    if (array_key_exists($key, $params) and isset($params[$key]))
+                        $extras["_cake_$key"] = $params[$key];
+                }
             }
 
             $extras['_http_referer'] = $request->referer(false);
