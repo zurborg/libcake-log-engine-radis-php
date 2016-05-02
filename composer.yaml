@@ -26,6 +26,10 @@ require-dev:
   evert/phpdoc-md: '~0.2.0'
   phpdocumentor/phpdocumentor: '2.*'
 
+autoload:
+  psr-4:
+    Cake\Log\Engine\: src/
+
 archive:
   exclude:
     - '.*'
