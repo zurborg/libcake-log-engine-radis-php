@@ -1,5 +1,7 @@
 .*
 *~
 !.gitignore
+/composer.phar
+/composer.lock
 /vendor/
 /zurborg-cake-log-engine-radis-*

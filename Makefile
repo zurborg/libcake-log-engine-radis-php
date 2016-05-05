@@ -1,27 +1,32 @@
-phpdoc=vendor/phpdocumentor/phpdocumentor/bin/phpdoc
-phpdocmd=vendor/evert/phpdoc-md/bin/phpdocmd
-yaml2json=/usr/bin/perl -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
-composer=./composer.phar
-getversion=perl -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
+php=`which php`
+perl=`which perl`
+composer=$(php) composer.phar
+phpdoc=$(php) vendor/phpdocumentor/phpdocumentor/bin/phpdoc
+phpdocmd=$(php) vendor/evert/phpdoc-md/bin/phpdocmd
+yaml2json=$(perl) -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
+getversion=$(perl) -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
 V=`$(getversion) < composer.yaml`
 
 all: | composer.json documentation
 
+info:
+	@echo $(php)
+	@$(php) -v
+	@echo $(perl)
+	@$(perl) -v
+
 documentation:
-	-git rm -f docs/structure.xml
-	$(phpdoc) -d src/ -t docs/ --template=xml
-	git add docs/structure.xml
-	-git rm -f docs/*.md
+	-git rm -rf docs/
+	$(phpdoc) -d src/ -t docs/ --template=xml --visibility=public
 	$(phpdocmd) docs/structure.xml docs/
 	git add docs/*.md
+	git clean -xdf docs/
 
 clean:
 	git clean -xdf -e composer.phar -e vendor
 
 prepare:
-	-rm $(composer)*
-	wget https://getcomposer.org/composer.phar -O $(composer)
-	chmod +x $(composer)
+	curl https://getcomposer.org/composer.phar -z composer.phar -o composer.phar
 	-rm -rf vendor
 	$(composer) install
 
