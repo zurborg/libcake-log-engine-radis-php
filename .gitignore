@@ -3,5 +3,5 @@
 !.gitignore
 /composer.phar
 /composer.lock
+/phpunit.phar
 /vendor/
-/zurborg-cake-log-engine-radis-*
