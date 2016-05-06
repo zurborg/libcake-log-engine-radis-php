@@ -19,7 +19,7 @@ authors:
 
 require:
   php: '>=5.5'
-  ext-redis: '>=2.2.5'
+  zurborg/log-radis: '~1.0'
   cakephp/cakephp: '~3.0'
 
 require-dev:
