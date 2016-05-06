@@ -24,7 +24,7 @@ documentation:
 	git clean -xdf docs/
 
 clean:
-	git clean -xdf -e composer.phar -e vendor
+	git clean -xdf -e composer.phar -e phpunit.phar -e vendor
 
 prepare: composer.json
 	curl -L https://getcomposer.org/composer.phar -z composer.phar -o composer.phar
