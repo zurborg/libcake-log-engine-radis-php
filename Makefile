@@ -1,14 +1,14 @@
 php=`which php`
 perl=`which perl`
 composer=$(php) composer.phar
-phpunit=$(php) phpunit.phar
+phpunit=$(php) vendor/phpunit/phpunit/phpunit
 phpdoc=$(php) vendor/phpdocumentor/phpdocumentor/bin/phpdoc
 phpdocmd=$(php) vendor/evert/phpdoc-md/bin/phpdocmd
 yaml2json=$(perl) -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
 getversion=$(perl) -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
 V=`$(getversion) < composer.yaml`
 
-all: | composer.json test documentation
+all: | vendor test documentation
 
 info:
 	@echo $(php)
@@ -24,11 +24,10 @@ documentation:
 	git clean -xdf docs/
 
 clean:
-	git clean -xdf -e composer.phar -e phpunit.phar -e vendor
+	git clean -xdf -e composer.phar -e vendor
 
-prepare: composer.json
+vendor: composer.json
 	curl -L https://getcomposer.org/composer.phar -z composer.phar -o composer.phar
-	curl -L https://phar.phpunit.de/phpunit.phar  -z  phpunit.phar -o  phpunit.phar
 	$(composer) install
 
 composer.json: composer.yaml
@@ -38,7 +37,7 @@ composer.json: composer.yaml
 	git add $@
 
 test:
-	$(phpunit) test/*.php
+	$(phpunit) --verbose test
 
 archive: | clean composer.json
 	$(composer) archive
@@ -48,4 +47,4 @@ release:
 	git tag -m "Release version $V" -s v$V
 	git push --tags
 
-.PHONY: all info documentation clean prepare test archive release
+.PHONY: all info documentation clean test archive release
