@@ -1,12 +1,12 @@
-php=`which php`
-perl=`which perl`
+php=$(shell which php)
+perl=$(shell which perl)
 composer=$(php) composer.phar
 phpunit=$(php) vendor/phpunit/phpunit/phpunit
 phpdoc=$(php) vendor/phpdocumentor/phpdocumentor/bin/phpdoc
 phpdocmd=$(php) vendor/evert/phpdoc-md/bin/phpdocmd
 yaml2json=$(perl) -MJSON -MYAML -eprint -e'encode_json(YAML::Load(join""=><>))'
 getversion=$(perl) -MYAML -eprint -e'YAML::Load(join""=><>)->{version}'
-V=`$(getversion) < composer.yaml`
+V=$(shell $(getversion) < composer.yaml)
 
 all: | vendor test documentation
 
