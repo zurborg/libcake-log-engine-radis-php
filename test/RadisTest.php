@@ -57,7 +57,7 @@ class RadisTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(7, $msg['level']);
         $this->assertEquals(gethostname(), $msg['host']);
         $this->assertEquals($_SERVER['SCRIPT_FILENAME'], $msg['_php_script']);
-        $this->assertEquals('foobar', $msg['short_message']);
+        $this->assertEquals('foobar', $msg['message']);
         $this->assertEquals('RadisTest', $msg['_cake_application']);
     }
 }
