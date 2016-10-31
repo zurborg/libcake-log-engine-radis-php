@@ -18,8 +18,8 @@ authors:
     homepage: https://zurborg.github.io/
 
 require:
-  php: '>=5.5'
-  zurborg/log-radis: '~1.1'
+  php: '~7'
+  zurborg/log-radis: 'dev-php7'
   cakephp/cakephp: '~3.0'
 
 require-dev:
