@@ -79,6 +79,8 @@ class RadisLog extends BaseLog
             }
         }
 
+        $context['cake_application'] = \Cake\Core\Configure::read('App.name');
+
         $request = \Cake\Routing\Router::getRequest();
         if (!is_null($request)) {
 

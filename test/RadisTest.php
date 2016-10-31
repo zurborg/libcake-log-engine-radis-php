@@ -2,6 +2,8 @@
 
 include_once('vendor/autoload.php');
 
+\Cake\Core\Configure::write('App.name', 'RadisTest');
+
 class RadisTest extends \PHPUnit_Framework_TestCase
 {
     public $stack = [];
@@ -56,6 +58,7 @@ class RadisTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(gethostname(), $msg['host']);
         $this->assertEquals($_SERVER['SCRIPT_FILENAME'], $msg['_php_script']);
         $this->assertEquals('foobar', $msg['short_message']);
+        $this->assertEquals('RadisTest', $msg['_cake_application']);
     }
 }
 
